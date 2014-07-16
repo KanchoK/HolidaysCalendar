@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="HolidaysCalendar:war exploded">
+    <output-path>$PROJECT_DIR$/target/HolidaysCalendar</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="HolidaysCalendar/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="HolidaysCalendar" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.0.1" />
+          <element id="library" level="project" name="Maven: org.hsqldb:hsqldb:2.3.2" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
