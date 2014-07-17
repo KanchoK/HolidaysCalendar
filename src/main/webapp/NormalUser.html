@@ -14,7 +14,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#PersonTableContainer').jtable({
-                title: 'Holiday schedule',
+                title: 'My Holiday schedule',
                 actions: {
                     listAction: 'jTableController?action=list',
                     createAction: 'jTableController?action=create',
@@ -22,10 +22,23 @@
                     deleteAction: 'jTableController?action=delete'
                 },
                 fields: {
-//                    is it good idea for the employeeName filed to be key column ???
+                  holidayID: {
+                      key: true,
+                      create: false,
+                      edit: false,
+                      list: false
+                  },
+//                    maybe employeeID is not needed in the table ???
+//                  employeeID: {
+//                      create: false,
+//                      edit: false,
+//                      list: false
+//                  },
                     employeeName: {
                         title: 'Employee',
                         create: false,
+                        edit: false,
+                        list: false,
                         width: '40%'
                     },
                     beginDate: {
@@ -34,6 +47,12 @@
                     },
                     endDate: {
                         title: 'Holiday end date',
+                        width: '20%'
+                    },
+                    holidayStatus: {
+                        title: 'Status',
+                        create: false,
+                        edit: false,
                         width: '20%'
                     }
                 }

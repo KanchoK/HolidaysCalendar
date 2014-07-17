@@ -8,8 +8,8 @@ import java.sql.SQLException;
 /**
  * Created by R500 on 16.7.2014 г..
  */
-public class AccessLevel {
-    public static int getAccessLevel(String name, String pass){
+public class EmployeeAttributes {
+    public static int getEmployeeAccessLevel(String name, String pass){
         int accessLevel = 2;
 
         Connection conn = DBConnection.getConnection();
@@ -46,5 +46,44 @@ public class AccessLevel {
         }
 
         return accessLevel;
+    }
+
+    public static int getEmployeeID(String name, String pass){
+        int employeeID = -1;
+
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = conn.prepareStatement("select employee_ID from employees where username = ? and password = ?");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, pass);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            employeeID = resultSet.getInt("employee_ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        finally {
+            try{
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+
+        return employeeID;
     }
 }

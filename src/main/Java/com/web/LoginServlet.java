@@ -21,8 +21,10 @@ public class LoginServlet extends HttpServlet{
         if (LoginCheck.validate(name, pass)){
             HttpSession session = request.getSession();
             session.setAttribute("username", name);
-            int access = AccessLevel.getAccessLevel(name, pass);
+            int access = EmployeeAttributes.getEmployeeAccessLevel(name, pass);
             session.setAttribute("access", access);
+            int employeeID = EmployeeAttributes.getEmployeeID(name, pass);
+            session.setAttribute("employeeID", employeeID);
 
             if (session.getAttribute("access").equals(1)){
                 try {
@@ -39,7 +41,7 @@ public class LoginServlet extends HttpServlet{
             }
         } else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-            PrintWriter out= null;
+            PrintWriter out = null;
             try {
                 out = response.getWriter();
             } catch (IOException e) {
