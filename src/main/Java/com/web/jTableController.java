@@ -81,11 +81,11 @@ public class jTableController extends HttpServlet{
 
             else if (action.equals("update")){
                 Holiday holiday = new Holiday();
+                holiday.setHolidayID(Integer.parseInt(request.getParameter("holidayID")));
                 if (session.getAttribute("access").equals(1)){
                     holiday.setHolidayStatus(request.getParameter("holidayStatus"));
                     CrudDao.updateHolidayStatus(holiday);
                 } else {
-                    holiday.setHolidayID(Integer.parseInt(request.getParameter("holidayID")));
                     holiday.setBeginDate(request.getParameter("beginDate"));
                     holiday.setEndDate(request.getParameter("endDate"));
 

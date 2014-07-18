@@ -29,11 +29,11 @@
                         list: false
                     },
 //                    maybe employeeID is not needed in the table ???
-//                  employeeID:{
-//                      create: false,
-//                      edit: false,
-//                      list: false
-//                  },
+                    employeeID:{
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
                     employeeName: {
                         title: 'Employee',
                         create: false,
@@ -43,17 +43,23 @@
                     beginDate: {
                         title: 'Holiday begin date',
                         edit: false,
-                        width: '20%'
+                        width: '20%',
+                        type: 'date',
+                        displayFormat: 'yy-mm-dd'
                     },
                     endDate: {
                         title: 'Holiday end date',
                         edit: false,
-                        width: '20%'
+                        width: '20%',
+                        type: 'date',
+                        displayFormat: 'yy-mm-dd'
                     },
                     holidayStatus: {
                         title: 'Status',
                         create: false,
-                        width: '20%'
+                        width: '20%',
+                        type: 'radiobutton',
+                        options: { '1': 'Waiting for approval', '2': 'Approved', '3': 'Unapproved' }
                     }
                 }
             });
@@ -63,7 +69,7 @@
 
     <title></title>
 </head>
-<body>
+<body style="background:#567; font-family:'Open Sans',sans-serif;">
     <h2>Hello admin</h2>
 
     <div id="PersonTableContainer"></div>

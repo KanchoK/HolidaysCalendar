@@ -47,7 +47,12 @@ public class LoginServlet extends HttpServlet{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            out.println("<font color=red>Wrong username or password.</font>");
+            out.println("<p style=\"background:#3399cc; display:block; margin:0 auto;\n" +
+                    "    margin-top:1%;\n" +
+                    "    padding:10px;\n" +
+                    "    text-align:center;\n" +
+                    "    text-decoration:none;\n" +
+                    "    color:#fff;\">Wrong username or password.</p>");
             try {
                 rd.include(request, response);
             } catch (ServletException e) {

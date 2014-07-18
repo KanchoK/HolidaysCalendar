@@ -29,7 +29,7 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = req.getSession(false);
         int access = session!=null&&session.getAttribute("access")!=null?(Integer)session.getAttribute("access"):0;
 
-        if((session == null || session.getAttribute("username") == null) && (!(uri.endsWith("index.jsp") || uri.endsWith("/LoginServlet")))){
+        if((session == null || session.getAttribute("username") == null) && (!(uri.endsWith("index.jsp") || uri.endsWith(".css") || uri.endsWith("/LoginServlet")))){
             this.context.log("Unauthorized access request");
             try {
                 res.sendRedirect("index.jsp");
@@ -39,7 +39,14 @@ public class AuthenticationFilter implements Filter {
         } else if (session != null && access != 1 && uri.endsWith("Admin.html")){
             this.context.log("Unauthorized access request");
             try {
-                res.sendRedirect("index.jsp");
+                res.sendRedirect("NormalUser.html");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (session != null && access != 2 && uri.endsWith("NormalUser.html")){
+            this.context.log("Unauthorized access request");
+            try {
+                res.sendRedirect("Admin.html");
             } catch (IOException e) {
                 e.printStackTrace();
             }

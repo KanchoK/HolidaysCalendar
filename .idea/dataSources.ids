@@ -1095,6 +1095,7 @@
       <column name="USERNAME" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="PASSWORD" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="ACCESS_LEVEL" sqlType="INTEGER" precision="32" scale="0" nullable="false" jdbcType="4"/>
+      <column name="EMPLOYEENAME" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="SYS_PK_10092" columns="EMPLOYEE_ID"/>
       <exported-key name="EMPLOYEES_HOLIDAYS_FK" table="HOLIDAYS" schema="PUBLIC" catalog="PUBLIC" columns="EMPLOYEE_ID"/>
     </table>

@@ -18,17 +18,15 @@ public class CrudDao {
         ResultSet rsSecond = null;
         try {
             st = conn.createStatement();
-
             rsFirst = st.executeQuery("select holiday_id, beginDate, endDate, holidayStatus, employee_id from holidays");
-
 
             while (rsFirst.next()){
                 Holiday holiday = new Holiday();
-                pst = conn.prepareStatement("select username from employees where employee_id = ?");
+                pst = conn.prepareStatement("select employeeName from employees where employee_id = ?");
                 pst.setInt(1, rsFirst.getInt("employee_id"));
                 rsSecond = pst.executeQuery();
                 if (rsSecond.next())
-                    holiday.setEmployeeName(rsSecond.getString("username"));
+                    holiday.setEmployeeName(rsSecond.getString("employeeName"));
 //                holiday.setEmployeeID();
                 holiday.setHolidayID(rsFirst.getInt("holiday_id"));
                 holiday.setBeginDate(rsFirst.getString("beginDate"));
@@ -128,7 +126,7 @@ public class CrudDao {
         ResultSet rs = null;
         int key = -1;
         try {
-            pst = conn.prepareStatement("insert into Holidays (beginDate, endDate, employee_id) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            pst = conn.prepareStatement("insert into Holidays (beginDate, endDate, employee_id, holidayStatus) values (?,?,?,1)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, holiday.getBeginDate());
             pst.setString(2, holiday.getEndDate());
             pst.setInt(3, holiday.getEmployeeID());

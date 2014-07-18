@@ -14,7 +14,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#PersonTableContainer').jtable({
-                title: 'My Holiday schedule',
+                title: 'My Holiday requests',
                 actions: {
                     listAction: 'jTableController?action=list',
                     createAction: 'jTableController?action=create',
@@ -43,17 +43,23 @@
                     },
                     beginDate: {
                         title: 'Holiday begin date',
-                        width: '20%'
+                        width: '20%',
+                        type: 'date',
+                        displayFormat: 'yy-mm-dd'
                     },
                     endDate: {
                         title: 'Holiday end date',
-                        width: '20%'
+                        width: '20%',
+                        type: 'date',
+                        displayFormat: 'yy-mm-dd'
                     },
                     holidayStatus: {
                         title: 'Status',
                         create: false,
                         edit: false,
-                        width: '20%'
+                        width: '20%',
+                        type: 'radiobutton',
+                        options: { '1': 'Waiting for approval', '2': 'Approved', '3': 'Unapproved' }
                     }
                 }
             });
@@ -63,7 +69,7 @@
 
     <title></title>
 </head>
-<body>
+<body style="background:#567; font-family:'Open Sans',sans-serif;">
     <h2>Hello normal user</h2>
 
     <div id="PersonTableContainer"></div>
