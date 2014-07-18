@@ -1,0 +1,37 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+*{margin:0;padding:0;}
+
+body{
+    background:#567;
+    font-family:'Open Sans',sans-serif;
+}
+
+#welcome{
+    height: 60px;
+    margin-bottom: 5px;
+    margin-top:1%;
+}
+
+.text{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 25px;
+    color: #ffffff
+}
+
+.button{
+    width:100px;
+    background:#3399cc;
+    float: right;
+    margin: 0, auto;
+    padding:10px;
+    text-align: center;
+    text-decoration:none;
+    color:#fff;
+    cursor:pointer;
+}
+
+.button:hover{
+    background:#2288bb;
+}

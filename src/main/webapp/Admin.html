@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
 
+    <link rel="stylesheet" type="text/css" href="welcome.css">
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
@@ -29,11 +31,11 @@
                         list: false
                     },
 //                    maybe employeeID is not needed in the table ???
-                    employeeID:{
-                        create: false,
-                        edit: false,
-                        list: false
-                    },
+//                    employeeID:{
+//                        create: false,
+//                        edit: false,
+//                        list: false
+//                    },
                     employeeName: {
                         title: 'Employee',
                         create: false,
@@ -67,10 +69,24 @@
         });
     </script>
 
+    <!--unfinished-->
+
+    <!--<script>-->
+        <!--$(document).ready(function(){-->
+            <!--$('#logout').click(function(){-->
+                <!--$ajax-->
+            <!--});-->
+        <!--});-->
+    <!--</script>-->
+
     <title></title>
 </head>
-<body style="background:#567; font-family:'Open Sans',sans-serif;">
-    <h2>Hello admin</h2>
+<body>
+<div id="welcome">
+    <span class="text">Hello admin</span>
+
+    <span class="button" id="logout">Log out</span>
+</div>
 
     <div id="PersonTableContainer"></div>
 </body>
