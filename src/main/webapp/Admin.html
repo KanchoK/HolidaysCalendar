@@ -71,13 +71,16 @@
 
     <!--unfinished-->
 
-    <!--<script>-->
-        <!--$(document).ready(function(){-->
-            <!--$('#logout').click(function(){-->
-                <!--$ajax-->
-            <!--});-->
-        <!--});-->
-    <!--</script>-->
+    <script>
+        $(document).ready(function(){
+            $('#logout').click(function(){
+                $ajax({
+                    url: 'LogoutServlet',
+                    type: "POST"
+                });
+            });
+        });
+    </script>
 
     <title></title>
 </head>
@@ -85,7 +88,11 @@
 <div id="welcome">
     <span class="text">Hello admin</span>
 
-    <span class="button" id="logout">Log out</span>
+    <form class="button" action="LogoutServlet" method="post">
+        <input class="button" type="submit" value="Log out" />
+    </form>
+
+    <!--<span class="button" id="logout">Log out</span>-->
 </div>
 
     <div id="PersonTableContainer"></div>
