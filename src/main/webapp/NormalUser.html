@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
 
+    <link rel="stylesheet" type="text/css" href="header.css">
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
@@ -69,8 +71,16 @@
 
     <title></title>
 </head>
-<body style="background:#567; font-family:'Open Sans',sans-serif;">
-    <h2>Hello normal user</h2>
+<body>
+<div id="header">
+    <span class="text">Hello normal user</span>
+
+    <span class="logout">
+    <form action="LogoutServlet" method="post">
+        <input class="button" type="submit" value="Log out" />
+    </form>
+    </span>
+</div>
 
     <div id="PersonTableContainer"></div>
 </body>
