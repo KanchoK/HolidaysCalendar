@@ -25,6 +25,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>com.web.SignUpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/SignUpServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.web.LogoutServlet</servlet-class>
     </servlet>

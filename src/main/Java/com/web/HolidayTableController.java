@@ -57,6 +57,8 @@ public class HolidayTableController extends HttpServlet{
                 holiday.setBeginDate(request.getParameter("beginDate"));
                 holiday.setEndDate(request.getParameter("endDate"));
                 holiday.setEmployeeID((Integer)(session.getAttribute("employeeID")));
+
+                //employeeName not necessary in Holiday's table
                 holiday.setEmployeeName((String)(session.getAttribute("employeeName")));
 
                 try {

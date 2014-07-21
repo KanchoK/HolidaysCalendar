@@ -35,20 +35,21 @@
                         title: 'Employee',
                         width: '40%'
                     },
-                    username: {
-                        title: 'Username',
+                    email: {
+                        title: 'Email',
                         width: '20%'
                     },
                     password: {
                         title: 'Password',
                         width: '20%',
-                        type: 'password'
+                        type: 'password',
+                        list: false
                     },
                     accessLevel: {
                         title: 'Access level',
                         width: '20%',
                         type: 'radiobutton',
-                        options: { '1': 'Admin', '2': 'Normal user'}
+                        options: {'0': 'Waiting for conformation', '1': 'Admin', '2': 'Normal user'}
                     }
                 }
             });

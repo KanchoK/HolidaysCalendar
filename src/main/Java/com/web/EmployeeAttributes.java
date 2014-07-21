@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Created by R500 on 16.7.2014 г..
  */
 public class EmployeeAttributes {
-    public static int getEmployeeAccessLevel(String name, String pass){
+    public static int getEmployeeAccessLevel(String email, String pass){
         int accessLevel = 2;
 
         Connection conn = DBConnection.getConnection();
@@ -17,8 +17,8 @@ public class EmployeeAttributes {
         ResultSet resultSet = null;
 
         try {
-            preparedStatement = conn.prepareStatement("select access_level from employees where username = ? and password = ?");
-            preparedStatement.setString(1, name);
+            preparedStatement = conn.prepareStatement("select access_level from employees where email = ? and password = ?");
+            preparedStatement.setString(1, email);
             preparedStatement.setString(2, pass);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -48,7 +48,7 @@ public class EmployeeAttributes {
         return accessLevel;
     }
 
-    public static int getEmployeeID(String name, String pass){
+    public static int getEmployeeID(String email, String pass){
         int employeeID = -1;
 
         Connection conn = DBConnection.getConnection();
@@ -56,8 +56,8 @@ public class EmployeeAttributes {
         ResultSet resultSet = null;
 
         try {
-            preparedStatement = conn.prepareStatement("select employee_ID from employees where username = ? and password = ?");
-            preparedStatement.setString(1, name);
+            preparedStatement = conn.prepareStatement("select employee_ID from employees where email = ? and password = ?");
+            preparedStatement.setString(1, email);
             preparedStatement.setString(2, pass);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();

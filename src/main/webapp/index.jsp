@@ -23,9 +23,12 @@
     <div id="triangle"></div>
     <h1>Log in</h1>
     <form action="LoginServlet" method="post">
-        <input type="text" name="username" placeholder="Username" />
+        <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
         <input type="submit" value="Log in" />
+    </form>
+    <form id="signUpForm" action="signUp.html" method="post">
+        <input type="submit" value="Sign up">
     </form>
 </div>
 </body>

@@ -6,7 +6,7 @@ package com.web;
 public class Employee {
     private int employeeID;
     private String employeeName;
-    private String username;
+    private String email;
     private String password;
     private int accessLevel;
 
@@ -26,12 +26,12 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-    public String getUsername(){
-        return username;
+    public String getEmail(){
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword(){

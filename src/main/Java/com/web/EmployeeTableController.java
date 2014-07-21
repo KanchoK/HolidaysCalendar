@@ -47,10 +47,10 @@ public class EmployeeTableController extends HttpServlet {
 
             else if (action.equals("create")){
                 Employee employee = new Employee();
-                String convertedPass = Utility.toSHA1((request.getParameter("password")).getBytes());
+                String convertedPass = Utility.toSHA1(Utility.salt(request.getParameter("password")).getBytes());
 
                 employee.setEmployeeName(request.getParameter("employeeName"));
-                employee.setUsername(request.getParameter("username"));
+                employee.setEmail(request.getParameter("email"));
                 employee.setPassword(convertedPass);
                 employee.setAccessLevel(Integer.parseInt(request.getParameter("accessLevel")));
 
@@ -76,10 +76,10 @@ public class EmployeeTableController extends HttpServlet {
 
             else if (action.equals("update")){
                 Employee employee = new Employee();
-                String convertedPass = Utility.toSHA1((request.getParameter("password")).getBytes());
+                String convertedPass = Utility.toSHA1(Utility.salt(request.getParameter("password")).getBytes());
                 employee.setEmployeeID(Integer.parseInt(request.getParameter("employeeID")));
                 employee.setEmployeeName(request.getParameter("employeeName"));
-                employee.setUsername(request.getParameter("username"));
+                employee.setEmail(request.getParameter("email"));
                 employee.setPassword(convertedPass);
                 employee.setAccessLevel(Integer.parseInt(request.getParameter("accessLevel")));
                 CrudDao.updateEmployee(employee);

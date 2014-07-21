@@ -15,16 +15,16 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet{
     public void doPost(HttpServletRequest request, HttpServletResponse response){
 
-        String name = request.getParameter("username");
+        String email = request.getParameter("email");
         String pass = request.getParameter("password");
-        String convertedPass = Utility.toSHA1(pass.getBytes());
+        String convertedPass = Utility.toSHA1(Utility.salt(pass).getBytes());
 
-        if (LoginCheck.validate(name, convertedPass)){
+        if (LoginCheck.validate(email, convertedPass)){
             HttpSession session = request.getSession();
-            session.setAttribute("username", name);
-            int access = EmployeeAttributes.getEmployeeAccessLevel(name, convertedPass);
+            session.setAttribute("email", email);
+            int access = EmployeeAttributes.getEmployeeAccessLevel(email, convertedPass);
             session.setAttribute("access", access);
-            int employeeID = EmployeeAttributes.getEmployeeID(name, convertedPass);
+            int employeeID = EmployeeAttributes.getEmployeeID(email, convertedPass);
             session.setAttribute("employeeID", employeeID);
 
             if (session.getAttribute("access").equals(1)){
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet{
                     "    padding:10px;\n" +
                     "    text-align:center;\n" +
                     "    text-decoration:none;\n" +
-                    "    color:#fff;\">Wrong username or password.</p>");
+                    "    color:#fff;\">Wrong email or password.</p>");
             try {
                 rd.include(request, response);
             } catch (ServletException e) {

@@ -132,7 +132,7 @@ public class CrudDao {
                 Employee employee = new Employee();
                 employee.setEmployeeID(rs.getInt("employee_id"));
                 employee.setEmployeeName(rs.getString("employeeName"));
-                employee.setUsername(rs.getString("username"));
+                employee.setEmail(rs.getString("email"));
                 employee.setPassword(rs.getString("password"));
                 employee.setAccessLevel(rs.getInt("access_level"));
                 employees.add(employee);
@@ -206,9 +206,9 @@ public class CrudDao {
         ResultSet rs = null;
         int key = -1;
         try {
-            pst = conn.prepareStatement("insert into Employees (employeeName, username, password, access_level) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            pst = conn.prepareStatement("insert into Employees (employeeName, email, password, access_level) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, employee.getEmployeeName());
-            pst.setString(2, employee.getUsername());
+            pst.setString(2, employee.getEmail());
             pst.setString(3, employee.getPassword());
             pst.setInt(4, employee.getAccessLevel());
             pst.executeUpdate();
@@ -291,9 +291,9 @@ public class CrudDao {
         Connection conn = DBConnection.getConnection();
         PreparedStatement pst = null;
         try {
-            pst = conn.prepareStatement("update employees set employeeName = ?, username = ?, password = ?, access_level = ? where employee_id = ?");
+            pst = conn.prepareStatement("update employees set employeeName = ?, email = ?, password = ?, access_level = ? where employee_id = ?");
             pst.setString(1, employee.getEmployeeName());
-            pst.setString(2, employee.getUsername());
+            pst.setString(2, employee.getEmail());
             pst.setString(3, employee.getPassword());
             pst.setInt(4, employee.getAccessLevel());
             pst.setInt(5, employee.getEmployeeID());
