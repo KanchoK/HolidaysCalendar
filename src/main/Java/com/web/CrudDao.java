@@ -120,6 +120,49 @@ public class CrudDao {
         return holidays;
     }
 
+    public static List<Employee> getAllEmployees(){
+        Connection conn = DBConnection.getConnection();
+        List<Employee> employees = new ArrayList<Employee>();
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery("select * from employees");
+            while (rs.next()){
+                Employee employee = new Employee();
+                employee.setEmployeeID(rs.getInt("employee_id"));
+                employee.setEmployeeName(rs.getString("employeeName"));
+                employee.setUsername(rs.getString("username"));
+                employee.setPassword(rs.getString("password"));
+                employee.setAccessLevel(rs.getInt("access_level"));
+                employees.add(employee);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (st != null)
+                    st.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+            conn = null;
+            st = null;
+            rs = null;
+        }
+        return employees;
+    }
+
     public static int addHoliday(Holiday holiday){
         Connection conn = DBConnection.getConnection();
         PreparedStatement pst = null;
@@ -130,6 +173,44 @@ public class CrudDao {
             pst.setString(1, holiday.getBeginDate());
             pst.setString(2, holiday.getEndDate());
             pst.setInt(3, holiday.getEmployeeID());
+            pst.executeUpdate();
+            rs = pst.getGeneratedKeys();
+            if (rs.next())
+                key = rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (pst != null)
+                    pst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+        return key;
+    }
+
+    public static int addEmployee(Employee employee){
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        int key = -1;
+        try {
+            pst = conn.prepareStatement("insert into Employees (employeeName, username, password, access_level) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, employee.getEmployeeName());
+            pst.setString(2, employee.getUsername());
+            pst.setString(3, employee.getPassword());
+            pst.setInt(4, employee.getAccessLevel());
             pst.executeUpdate();
             rs = pst.getGeneratedKeys();
             if (rs.next())
@@ -206,12 +287,62 @@ public class CrudDao {
         }
     }
 
+    public static void updateEmployee(Employee employee){
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("update employees set employeeName = ?, username = ?, password = ?, access_level = ? where employee_id = ?");
+            pst.setString(1, employee.getEmployeeName());
+            pst.setString(2, employee.getUsername());
+            pst.setString(3, employee.getPassword());
+            pst.setInt(4, employee.getAccessLevel());
+            pst.setInt(5, employee.getEmployeeID());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (pst != null)
+                    pst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+    }
+
     public static void deleteHoliday(int holidayID){
         Connection conn = DBConnection.getConnection();
         PreparedStatement pst = null;
         try {
             pst = conn.prepareStatement("delete from holidays where holiday_id = ?");
             pst.setInt(1, holidayID);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (pst != null)
+                    pst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+    }
+
+    public static void deleteEmployee(int employeeID){
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("delete from employees where employee_id = ?");
+            pst.setInt(1, employeeID);
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

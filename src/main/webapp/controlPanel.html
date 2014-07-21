@@ -16,52 +16,39 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#PersonTableContainer').jtable({
-                title: 'Employees Holiday requests',
+                title: 'Control Panel',
                 actions: {
-                    listAction: 'HolidayTableController?action=list',
-                    createAction: 'HolidayTableController?action=create',
-                    updateAction: 'HolidayTableController?action=update',
-                    deleteAction: 'HolidayTableController?action=delete'
+                    listAction: 'EmployeeTableController?action=list',
+                    createAction: 'EmployeeTableController?action=create',
+                    updateAction: 'EmployeeTableController?action=update',
+                    deleteAction: 'EmployeeTableController?action=delete'
                 },
                 fields: {
-                    holidayID:{
+                    employeeID:{
+                        title: 'ID',
                         key: true,
                         create: false,
                         edit: false,
-                        list: false
+                        list: true
                     },
-//                    maybe employeeID is not needed in the table ???
-//                    employeeID:{
-//                        create: false,
-//                        edit: false,
-//                        list: false
-//                    },
                     employeeName: {
                         title: 'Employee',
-                        create: false,
-                        edit: false,
                         width: '40%'
                     },
-                    beginDate: {
-                        title: 'Holiday begin date',
-                        edit: false,
-                        width: '20%',
-                        type: 'date',
-                        displayFormat: 'yy-mm-dd'
+                    username: {
+                        title: 'Username',
+                        width: '20%'
                     },
-                    endDate: {
-                        title: 'Holiday end date',
-                        edit: false,
+                    password: {
+                        title: 'Password',
                         width: '20%',
-                        type: 'date',
-                        displayFormat: 'yy-mm-dd'
+                        type: 'password'
                     },
-                    holidayStatus: {
-                        title: 'Status',
-                        create: false,
+                    accessLevel: {
+                        title: 'Access level',
                         width: '20%',
                         type: 'radiobutton',
-                        options: { '1': 'Waiting for approval', '2': 'Approved', '3': 'Unapproved' }
+                        options: { '1': 'Admin', '2': 'Normal user'}
                     }
                 }
             });
@@ -73,7 +60,7 @@
 </head>
 <body>
 <div id="header">
-    <span class="text">Hello admin</span>
+    <span class="text">Welcome to the Control Panel</span>
 
     <span class="button">
     <form action="LogoutServlet" method="post">
@@ -82,12 +69,12 @@
     </span>
 
      <span class="button">
-    <form action="controlPanel.html" method="post">
-        <input type="submit" value="Control panel" />
+    <form action="Admin.html" method="post">
+        <input type="submit" value="Requests' table" />
     </form>
     </span>
 </div>
 
-    <div id="PersonTableContainer"></div>
+<div id="PersonTableContainer"></div>
 </body>
 </html>

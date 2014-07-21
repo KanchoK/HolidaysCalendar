@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by R500 on 17.7.2014 г..
  */
-public class jTableController extends HttpServlet{
+public class HolidayTableController extends HttpServlet{
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         if (request.getParameter("action") != null) {

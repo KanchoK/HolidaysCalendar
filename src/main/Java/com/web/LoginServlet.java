@@ -17,13 +17,14 @@ public class LoginServlet extends HttpServlet{
 
         String name = request.getParameter("username");
         String pass = request.getParameter("password");
+        String convertedPass = Utility.toSHA1(pass.getBytes());
 
-        if (LoginCheck.validate(name, pass)){
+        if (LoginCheck.validate(name, convertedPass)){
             HttpSession session = request.getSession();
             session.setAttribute("username", name);
-            int access = EmployeeAttributes.getEmployeeAccessLevel(name, pass);
+            int access = EmployeeAttributes.getEmployeeAccessLevel(name, convertedPass);
             session.setAttribute("access", access);
-            int employeeID = EmployeeAttributes.getEmployeeID(name, pass);
+            int employeeID = EmployeeAttributes.getEmployeeID(name, convertedPass);
             session.setAttribute("employeeID", employeeID);
 
             if (session.getAttribute("access").equals(1)){

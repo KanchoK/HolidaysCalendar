@@ -18,10 +18,10 @@
             $('#PersonTableContainer').jtable({
                 title: 'My Holiday requests',
                 actions: {
-                    listAction: 'jTableController?action=list',
-                    createAction: 'jTableController?action=create',
-                    updateAction: 'jTableController?action=update',
-                    deleteAction: 'jTableController?action=delete'
+                    listAction: 'HolidayTableController?action=list',
+                    createAction: 'HolidayTableController?action=create',
+                    updateAction: 'HolidayTableController?action=update',
+                    deleteAction: 'HolidayTableController?action=delete'
                 },
                 fields: {
                   holidayID: {
@@ -75,9 +75,9 @@
 <div id="header">
     <span class="text">Hello normal user</span>
 
-    <span class="logout">
+    <span class="button">
     <form action="LogoutServlet" method="post">
-        <input class="button" type="submit" value="Log out" />
+        <input type="submit" value="Log out" />
     </form>
     </span>
 </div>

@@ -34,12 +34,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>jTableController</servlet-name>
-        <servlet-class>com.web.jTableController</servlet-class>
+        <servlet-name>HolidayTableController</servlet-name>
+        <servlet-class>com.web.HolidayTableController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>jTableController</servlet-name>
-        <url-pattern>/jTableController</url-pattern>
+        <servlet-name>HolidayTableController</servlet-name>
+        <url-pattern>/HolidayTableController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EmployeeTableController</servlet-name>
+        <servlet-class>com.web.EmployeeTableController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmployeeTableController</servlet-name>
+        <url-pattern>/EmployeeTableController</url-pattern>
     </servlet-mapping>
 
     <filter>
