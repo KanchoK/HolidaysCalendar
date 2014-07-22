@@ -23,7 +23,8 @@
     <div id="triangle"></div>
     <h1>Log in</h1>
     <form action="LoginServlet" method="post">
-        <input type="email" name="email" placeholder="Email" />
+        <input class="email" type="text" name="email" placeholder="Email" />
+        <span>@novarto.com</span>
         <input type="password" name="password" placeholder="Password" />
         <input type="submit" value="Log in" />
     </form>

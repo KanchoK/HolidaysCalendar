@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet{
     public void doPost(HttpServletRequest request, HttpServletResponse response){
 
-        String email = request.getParameter("email");
+        String email = request.getParameter("email")  + "@novarto.com";
         String pass = request.getParameter("password");
         String convertedPass = Utility.toSHA1(Utility.salt(pass).getBytes());
 

@@ -17,6 +17,8 @@
         $(document).ready(function () {
             $('#PersonTableContainer').jtable({
                 title: 'Control Panel',
+                sorting: true,
+                defaultSorting: 'employeeID DESC',
                 actions: {
                     listAction: 'EmployeeTableController?action=list',
                     createAction: 'EmployeeTableController?action=create',
@@ -34,6 +36,7 @@
                     employeeName: {
                         title: 'Employee',
                         width: '40%'
+
                     },
                     email: {
                         title: 'Email',

@@ -8,7 +8,6 @@ import com.google.gson.reflect.TypeToken;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +95,7 @@ public class EmployeeTableController extends HttpServlet {
                 try{
                     if(request.getParameter("employeeID") != null){
                         String employeeID = (String)request.getParameter("employeeID");
-                        CrudDao.deleteEmployee(Integer.parseInt(employeeID));
+                        CrudDao.cascadeDeleteEmployee(Integer.parseInt(employeeID));
                         String listData="{\"Result\":\"OK\"}";
                         response.getWriter().print(listData);
                     }

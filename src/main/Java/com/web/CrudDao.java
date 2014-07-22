@@ -337,20 +337,33 @@ public class CrudDao {
         }
     }
 
-    public static void deleteEmployee(int employeeID){
+    public static void cascadeDeleteEmployee(int employeeID){
         Connection conn = DBConnection.getConnection();
-        PreparedStatement pst = null;
+        PreparedStatement pstFirst = null;
+        PreparedStatement pstSecond = null;
         try {
-            pst = conn.prepareStatement("delete from employees where employee_id = ?");
-            pst.setInt(1, employeeID);
-            pst.executeUpdate();
+            pstFirst = conn.prepareStatement("delete from holidays where employee_id = ?");
+            pstFirst.setInt(1, employeeID);
+            pstFirst.executeUpdate();
+
+            pstSecond = conn.prepareStatement("delete from employees where employee_id = ?");
+            pstSecond.setInt(1, employeeID);
+            pstSecond.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         finally {
             try{
-                if (pst != null)
-                    pst.close();
+                if (pstFirst != null)
+                    pstFirst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try{
+                if (pstSecond != null)
+                    pstSecond.close();
             }
             catch (SQLException e)
             {
