@@ -163,6 +163,35 @@ public class CrudDao {
         return employees;
     }
 
+    public static String getPassword(int employeeID){
+        String password = "";
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            pst = conn.prepareStatement("select password from employees where employee_id = ?");
+            pst.setInt(1, employeeID);
+            rs = pst.executeQuery();
+            rs.next();
+            password = rs.getString("password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (pst != null)
+                    pst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+        return password;
+    }
+
     public static int addHoliday(Holiday holiday){
         Connection conn = DBConnection.getConnection();
         PreparedStatement pst = null;
@@ -297,6 +326,30 @@ public class CrudDao {
             pst.setString(3, employee.getPassword());
             pst.setInt(4, employee.getAccessLevel());
             pst.setInt(5, employee.getEmployeeID());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (pst != null)
+                    pst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+    }
+
+    public static void updateEmployeePassword(String newPass, int employeeID){
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pst = null;
+        try {
+            pst = conn.prepareStatement("update employees set password = ? where employee_id = ?");
+            pst.setString(1, newPass);
+            pst.setInt(2, employeeID);
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

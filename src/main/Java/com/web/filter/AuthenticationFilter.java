@@ -37,7 +37,7 @@ public class AuthenticationFilter implements Filter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (session != null && access != 1 && uri.endsWith("Admin.html")){
+        } else if (session != null && access != 1 && (uri.endsWith("Admin.html") || uri.endsWith("controlPanel.html"))){
             this.context.log("Unauthorized access request");
             try {
                 res.sendRedirect("NormalUser.html");
