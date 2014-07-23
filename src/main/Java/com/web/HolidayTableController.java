@@ -23,21 +23,29 @@ public class HolidayTableController extends HttpServlet{
             String action = (String) request.getParameter("action");
             HttpSession session = request.getSession();
             List<Holiday> holidays = new ArrayList<Holiday>();
-            if (session.getAttribute("access").equals(1)) {
-                holidays = CrudDao.getAllHolidays();
-            } else {
-                holidays = CrudDao.getMyHolidays((Integer)session.getAttribute("employeeID"));
-            }
+
             Gson gson = new Gson();
             response.setContentType("application/json");
 
             if (action.equals("list")) {
                 try {
+                    int startPageIndex = Integer.parseInt(request.getParameter("jtStartIndex"));
+                    int numRecordsPerPage = Integer.parseInt(request.getParameter("jtPageSize"));
+                    String sort = request.getParameter("jtSorting");
+                    int holidayCount = -1;
+
+                    if (session.getAttribute("access").equals(1)) {
+                        holidays = CrudDao.getAllHolidays(startPageIndex, numRecordsPerPage, sort);
+                        holidayCount = CrudDao.getHolidayCount();
+                    } else {
+                        holidays = CrudDao.getMyHolidays((Integer)session.getAttribute("employeeID"), startPageIndex, numRecordsPerPage, sort);
+                        holidayCount = CrudDao.getHolidayCount((Integer)session.getAttribute("employeeID"));
+                    }
                     JsonElement element = gson.toJsonTree(holidays, new TypeToken<List<Holiday>>() {}.getType());
                     JsonArray jsonArray = element.getAsJsonArray();
                     String listData = jsonArray.toString();
 
-                    listData = "{\"Result\":\"OK\",\"Records\":" + listData + "}";
+                    listData = "{\"Result\":\"OK\",\"Records\":" + listData + ",\"TotalRecordCount\":" + holidayCount + "}";
                     response.setContentType("application/json");
                     response.getWriter().print(listData);
                     System.out.println(listData);

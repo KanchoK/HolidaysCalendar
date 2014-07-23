@@ -20,17 +20,22 @@ public class EmployeeTableController extends HttpServlet {
         if (request.getParameter("action") != null) {
             String action = (String) request.getParameter("action");
             List<Employee> employees = new ArrayList<Employee>();
-            employees = CrudDao.getAllEmployees();
             Gson gson = new Gson();
             response.setContentType("application/json");
 
             if (action.equals("list")) {
                 try {
+                    int startPageIndex = Integer.parseInt(request.getParameter("jtStartIndex"));
+                    int numRecordsPerPage = Integer.parseInt(request.getParameter("jtPageSize"));
+                    String sort = request.getParameter("jtSorting");
+                    employees = CrudDao.getAllEmployees(startPageIndex, numRecordsPerPage, sort);
+                    int employeeCount = CrudDao.getEmployeeCount();
+
                     JsonElement element = gson.toJsonTree(employees, new TypeToken<List<Employee>>() {}.getType());
                     JsonArray jsonArray = element.getAsJsonArray();
                     String listData = jsonArray.toString();
 
-                    listData = "{\"Result\":\"OK\",\"Records\":" + listData + "}";
+                    listData = "{\"Result\":\"OK\",\"Records\":" + listData + ",\"TotalRecordCount\":" + employeeCount + "}";
                     response.setContentType("application/json");
                     response.getWriter().print(listData);
                     System.out.println(listData);
@@ -51,10 +56,10 @@ public class EmployeeTableController extends HttpServlet {
                 employee.setEmployeeName(request.getParameter("employeeName"));
                 employee.setEmail(request.getParameter("email"));
                 employee.setPassword(convertedPass);
-                employee.setAccessLevel(Integer.parseInt(request.getParameter("accessLevel")));
+                employee.setAccess_level(Integer.parseInt(request.getParameter("access_level")));
 
                 try {
-                    employee.setEmployeeID(CrudDao.addEmployee(employee));
+                    employee.setEmployee_id(CrudDao.addEmployee(employee));
                     employees.add(employee);
                     String json = gson.toJson(employee);
                     String listData = "{\"Result\":\"OK\",\"Record\":" + json + "}";
@@ -76,11 +81,11 @@ public class EmployeeTableController extends HttpServlet {
             else if (action.equals("update")){
                 Employee employee = new Employee();
                 String convertedPass = Utility.toSHA1(Utility.salt(request.getParameter("password")).getBytes());
-                employee.setEmployeeID(Integer.parseInt(request.getParameter("employeeID")));
+                employee.setEmployee_id(Integer.parseInt(request.getParameter("employee_id")));
                 employee.setEmployeeName(request.getParameter("employeeName"));
                 employee.setEmail(request.getParameter("email"));
                 employee.setPassword(convertedPass);
-                employee.setAccessLevel(Integer.parseInt(request.getParameter("accessLevel")));
+                employee.setAccess_level(Integer.parseInt(request.getParameter("access_level")));
                 CrudDao.updateEmployee(employee);
 
                 String listData="{\"Result\":\"OK\"}";
@@ -93,8 +98,8 @@ public class EmployeeTableController extends HttpServlet {
 
             else if (action.equals("delete")){
                 try{
-                    if(request.getParameter("employeeID") != null){
-                        String employeeID = (String)request.getParameter("employeeID");
+                    if(request.getParameter("employee_id") != null){
+                        String employeeID = (String)request.getParameter("employee_id");
                         CrudDao.cascadeDeleteEmployee(Integer.parseInt(employeeID));
                         String listData="{\"Result\":\"OK\"}";
                         response.getWriter().print(listData);

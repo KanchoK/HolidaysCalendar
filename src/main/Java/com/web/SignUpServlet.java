@@ -89,7 +89,7 @@ public class SignUpServlet extends HttpServlet {
             employee.setEmployeeName(fName + " " + lName);
             employee.setEmail(email);
             employee.setPassword(convertedPass);
-            employee.setAccessLevel(0);
+            employee.setAccess_level(0);
             CrudDao.addEmployee(employee);
 
             try {

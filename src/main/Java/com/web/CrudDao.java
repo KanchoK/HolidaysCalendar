@@ -9,16 +9,19 @@ import java.util.List;
  */
 public class CrudDao {
 
-    public static List<Holiday> getAllHolidays(){
+    public static List<Holiday> getAllHolidays(int jtStartIndex, int jtPageSize, String jtSorting){
         Connection conn = DBConnection.getConnection();
         List<Holiday> holidays = new ArrayList<Holiday>();
+        String startIndex = Integer.toString(jtStartIndex);
+        String pageSize = Integer.toString(jtPageSize);
         Statement st = null;
         PreparedStatement pst = null;
         ResultSet rsFirst = null;
         ResultSet rsSecond = null;
         try {
             st = conn.createStatement();
-            rsFirst = st.executeQuery("select holiday_id, beginDate, endDate, holidayStatus, employee_id from holidays");
+            rsFirst = st.executeQuery("select holiday_id, beginDate, endDate, holidayStatus, employee_id from holidays " +
+                    "                   order by " + jtSorting + " limit " + pageSize + " offset " + startIndex);
 
             while (rsFirst.next()){
                 Holiday holiday = new Holiday();
@@ -27,7 +30,7 @@ public class CrudDao {
                 rsSecond = pst.executeQuery();
                 if (rsSecond.next())
                     holiday.setEmployeeName(rsSecond.getString("employeeName"));
-//                holiday.setEmployeeID();
+//                holiday.setEmployee_id();
                 holiday.setHolidayID(rsFirst.getInt("holiday_id"));
                 holiday.setBeginDate(rsFirst.getString("beginDate"));
                 holiday.setEndDate(rsFirst.getString("endDate"));
@@ -76,13 +79,16 @@ public class CrudDao {
         return holidays;
     }
 
-    public static List<Holiday> getMyHolidays(int employeeID){
+    public static List<Holiday> getMyHolidays(int employeeID, int jtStartIndex, int jtPageSize, String jtSorting){
         Connection conn = DBConnection.getConnection();
         List<Holiday> holidays = new ArrayList<Holiday>();
+        String startIndex = Integer.toString(jtStartIndex);
+        String pageSize = Integer.toString(jtPageSize);
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         try {
-            preparedStatement = conn.prepareStatement("select holiday_id, beginDate, endDate, holidayStatus from holidays where employee_id = ?");
+            preparedStatement = conn.prepareStatement("select holiday_id, beginDate, endDate, holidayStatus from holidays where employee_id = ? " +
+                    "                                   order by " + jtSorting + " limit " + pageSize + " offset " + startIndex);
             preparedStatement.setInt(1, employeeID);
             rs = preparedStatement.executeQuery();
 
@@ -120,21 +126,97 @@ public class CrudDao {
         return holidays;
     }
 
-    public static List<Employee> getAllEmployees(){
+    public static int getHolidayCount(){
+        int count=0;
+        Connection conn = DBConnection.getConnection();
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn. createStatement();
+            rs = st.executeQuery("select COUNT(*) from holidays");
+            rs.next();
+            count = rs.getInt("C1");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (st != null)
+                    st.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+            conn = null;
+            st = null;
+            rs = null;
+        }
+        return count;
+    }
+
+    public static int getHolidayCount(int employeeID){
+        int count=0;
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            pst = conn.prepareStatement("select COUNT(*) from holidays where employee_id = ?");
+            pst.setInt(1, employeeID);
+            rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("C1");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (pst != null)
+                    pst.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+            conn = null;
+            pst = null;
+            rs = null;
+        }
+        return count;
+    }
+
+    public static List<Employee> getAllEmployees(int jtStartIndex, int jtPageSize, String jtSorting){
         Connection conn = DBConnection.getConnection();
         List<Employee> employees = new ArrayList<Employee>();
+        String startIndex = Integer.toString(jtStartIndex);
+        String pageSize = Integer.toString(jtPageSize);
+
         Statement st = null;
         ResultSet rs = null;
         try {
             st = conn.createStatement();
-            rs = st.executeQuery("select * from employees");
+            rs = st.executeQuery("select * from employees order by " + jtSorting + " limit " + pageSize + " offset " + startIndex);
             while (rs.next()){
                 Employee employee = new Employee();
-                employee.setEmployeeID(rs.getInt("employee_id"));
+                employee.setEmployee_id(rs.getInt("employee_id"));
                 employee.setEmployeeName(rs.getString("employeeName"));
                 employee.setEmail(rs.getString("email"));
                 employee.setPassword(rs.getString("password"));
-                employee.setAccessLevel(rs.getInt("access_level"));
+                employee.setAccess_level(rs.getInt("access_level"));
                 employees.add(employee);
             }
         } catch (SQLException e) {
@@ -161,6 +243,42 @@ public class CrudDao {
             rs = null;
         }
         return employees;
+    }
+
+    public static int getEmployeeCount(){
+        int count=0;
+        Connection conn = DBConnection.getConnection();
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn. createStatement();
+            rs = st.executeQuery("select COUNT(*) from employees");
+            rs.next();
+            count = rs.getInt("C1");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if (st != null)
+                    st.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+            conn = null;
+            st = null;
+            rs = null;
+        }
+        return count;
     }
 
     public static String getPassword(int employeeID){
@@ -239,7 +357,7 @@ public class CrudDao {
             pst.setString(1, employee.getEmployeeName());
             pst.setString(2, employee.getEmail());
             pst.setString(3, employee.getPassword());
-            pst.setInt(4, employee.getAccessLevel());
+            pst.setInt(4, employee.getAccess_level());
             pst.executeUpdate();
             rs = pst.getGeneratedKeys();
             if (rs.next())
@@ -324,8 +442,8 @@ public class CrudDao {
             pst.setString(1, employee.getEmployeeName());
             pst.setString(2, employee.getEmail());
             pst.setString(3, employee.getPassword());
-            pst.setInt(4, employee.getAccessLevel());
-            pst.setInt(5, employee.getEmployeeID());
+            pst.setInt(4, employee.getAccess_level());
+            pst.setInt(5, employee.getEmployee_id());
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

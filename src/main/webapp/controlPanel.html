@@ -18,9 +18,9 @@
             $('#PersonTableContainer').jtable({
                 title: 'Control Panel',
                 paging: true,
-                pageSize: 20,
+                pageSize: 10,
                 sorting: true,
-                defaultSorting: 'employeeID DESC',
+                defaultSorting: 'access_level ASC',
                 actions: {
                     listAction: 'EmployeeTableController?action=list',
                     createAction: 'EmployeeTableController?action=create',
@@ -28,7 +28,7 @@
                     deleteAction: 'EmployeeTableController?action=delete'
                 },
                 fields: {
-                    employeeID:{
+                    employee_id:{
                         title: 'ID',
                         key: true,
                         create: false,
@@ -38,7 +38,6 @@
                     employeeName: {
                         title: 'Employee',
                         width: '40%'
-
                     },
                     email: {
                         title: 'Email',
@@ -50,7 +49,7 @@
                         type: 'password',
                         list: false
                     },
-                    accessLevel: {
+                    access_level: {
                         title: 'Access level',
                         width: '20%',
                         type: 'radiobutton',

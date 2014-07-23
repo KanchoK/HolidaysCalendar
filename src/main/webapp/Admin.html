@@ -17,6 +17,10 @@
         $(document).ready(function () {
             $('#PersonTableContainer').jtable({
                 title: 'Employees Holiday requests',
+                paging: true,
+                pageSize: 10,
+                sorting: true,
+                defaultSorting: 'holidayStatus ASC',
                 actions: {
                     listAction: 'HolidayTableController?action=list',
                     createAction: 'HolidayTableController?action=create',
@@ -40,7 +44,8 @@
                         title: 'Employee',
                         create: false,
                         edit: false,
-                        width: '40%'
+                        width: '40%',
+                        sorting: false
                     },
                     beginDate: {
                         title: 'Holiday begin date',

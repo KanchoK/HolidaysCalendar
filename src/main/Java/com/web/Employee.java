@@ -4,18 +4,18 @@ package com.web;
  * Created by R500 on 21.7.2014 г..
  */
 public class Employee {
-    private int employeeID;
+    private int employee_id;
     private String employeeName;
     private String email;
     private String password;
-    private int accessLevel;
+    private int access_level;
 
-    public int getEmployeeID(){
-        return employeeID;
+    public int getEmployee_id(){
+        return employee_id;
     }
 
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getEmployeeName() {
@@ -42,11 +42,11 @@ public class Employee {
         this.password = password;
     }
 
-    public int getAccessLevel() {
-        return accessLevel;
+    public int getAccess_level() {
+        return access_level;
     }
 
-    public void setAccessLevel(int accessLevel) {
-        this.accessLevel = accessLevel;
+    public void setAccess_level(int access_level) {
+        this.access_level = access_level;
     }
 }
