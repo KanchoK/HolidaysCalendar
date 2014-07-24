@@ -5,10 +5,14 @@ package com.web;
  */
 public class Employee {
     private int employee_id;
+    private String fName;
+    private String surname;
+    private String lName;
     private String employeeName;
     private String email;
     private String password;
     private int access_level;
+    private int accountStatus;
 
     public int getEmployee_id(){
         return employee_id;
@@ -16,6 +20,30 @@ public class Employee {
 
     public void setEmployee_id(int employee_id) {
         this.employee_id = employee_id;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
     public String getEmployeeName() {
@@ -48,5 +76,13 @@ public class Employee {
 
     public void setAccess_level(int access_level) {
         this.access_level = access_level;
+    }
+
+    public int getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(int accountStatus) {
+        this.accountStatus = accountStatus;
     }
 }

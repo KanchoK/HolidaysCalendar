@@ -34,10 +34,18 @@ public class LoginServlet extends HttpServlet{
                     e.printStackTrace();
                 }
             } else {
-                try {
-                    response.sendRedirect("NormalUser.html");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (CrudDao.getAccountStatus((Integer) session.getAttribute("employeeID")) == 0) {
+                    try {
+                        response.sendRedirect("changePassword.html");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        response.sendRedirect("NormalUser.html");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } else {

@@ -51,12 +51,17 @@ public class EmployeeTableController extends HttpServlet {
 
             else if (action.equals("create")){
                 Employee employee = new Employee();
-                String convertedPass = Utility.toSHA1(Utility.salt(request.getParameter("password")).getBytes());
+                String convertedPass = Utility.toSHA1(Utility.salt("initial").getBytes());
 
-                employee.setEmployeeName(request.getParameter("employeeName"));
+                employee.setfName(request.getParameter("fName"));
+                employee.setSurname(request.getParameter("surname"));
+                employee.setlName(request.getParameter("lName"));
+
+                employee.setEmployeeName(request.getParameter("fName") + " " + request.getParameter("surname") + " " + request.getParameter("lName"));
                 employee.setEmail(request.getParameter("email"));
                 employee.setPassword(convertedPass);
                 employee.setAccess_level(Integer.parseInt(request.getParameter("access_level")));
+                employee.setAccountStatus(0);
 
                 try {
                     employee.setEmployee_id(CrudDao.addEmployee(employee));
@@ -82,7 +87,11 @@ public class EmployeeTableController extends HttpServlet {
                 Employee employee = new Employee();
                 String convertedPass = Utility.toSHA1(Utility.salt(request.getParameter("password")).getBytes());
                 employee.setEmployee_id(Integer.parseInt(request.getParameter("employee_id")));
-                employee.setEmployeeName(request.getParameter("employeeName"));
+                employee.setfName(request.getParameter("fName"));
+                employee.setSurname(request.getParameter("surname"));
+                employee.setlName(request.getParameter("lName"));
+
+                employee.setEmployeeName(request.getParameter("fName") + " " + request.getParameter("surname") + " " + request.getParameter("lName"));
                 employee.setEmail(request.getParameter("email"));
                 employee.setPassword(convertedPass);
                 employee.setAccess_level(Integer.parseInt(request.getParameter("access_level")));

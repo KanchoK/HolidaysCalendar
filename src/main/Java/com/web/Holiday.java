@@ -6,7 +6,6 @@ package com.web;
 public class Holiday {
     private int holidayID;
     private int employeeID;
-    //
     private String employeeName;
 
     private String beginDate;

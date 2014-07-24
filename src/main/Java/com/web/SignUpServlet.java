@@ -14,13 +14,14 @@ import java.io.PrintWriter;
 public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         String fName = request.getParameter("fName");
+        String surname = request.getParameter("surname");
         String lName = request.getParameter("lName");
         String email = request.getParameter("email") + "@novarto.com";
         String pass = request.getParameter("password");
         String confirmPass = request.getParameter("confirmPassword");
         String convertedPass = Utility.toSHA1(Utility.salt(pass).getBytes());
 
-        if (fName.trim().equals("") || lName.trim().equals("") || email.trim().equals("") || pass.trim().equals("")){
+        if (fName.trim().equals("") || surname.trim().equals("") || lName.trim().equals("") || email.trim().equals("") || pass.trim().equals("")){
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/signUp.html");
             PrintWriter out = null;
             try {
@@ -86,10 +87,14 @@ public class SignUpServlet extends HttpServlet {
         } else {
             Employee employee = new Employee();
 
-            employee.setEmployeeName(fName + " " + lName);
+            employee.setfName(fName);
+            employee.setSurname(surname);
+            employee.setlName(lName);
+            employee.setEmployeeName(fName + " "+ surname + " " + lName);
             employee.setEmail(email);
             employee.setPassword(convertedPass);
             employee.setAccess_level(0);
+            employee.setAccountStatus(1);
             CrudDao.addEmployee(employee);
 
             try {
