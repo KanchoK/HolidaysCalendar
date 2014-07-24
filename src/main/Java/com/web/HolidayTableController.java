@@ -26,6 +26,7 @@ public class HolidayTableController extends HttpServlet{
 
             Gson gson = new Gson();
             response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
             if (action.equals("list")) {
                 try {
@@ -46,7 +47,6 @@ public class HolidayTableController extends HttpServlet{
                     String listData = jsonArray.toString();
 
                     listData = "{\"Result\":\"OK\",\"Records\":" + listData + ",\"TotalRecordCount\":" + holidayCount + "}";
-                    response.setContentType("application/json");
                     response.getWriter().print(listData);
                     System.out.println(listData);
                 } catch (Exception ex) {

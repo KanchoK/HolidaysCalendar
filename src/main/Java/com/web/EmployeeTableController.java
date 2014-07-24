@@ -22,6 +22,7 @@ public class EmployeeTableController extends HttpServlet {
             List<Employee> employees = new ArrayList<Employee>();
             Gson gson = new Gson();
             response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
             if (action.equals("list")) {
                 try {
@@ -36,7 +37,7 @@ public class EmployeeTableController extends HttpServlet {
                     String listData = jsonArray.toString();
 
                     listData = "{\"Result\":\"OK\",\"Records\":" + listData + ",\"TotalRecordCount\":" + employeeCount + "}";
-                    response.setContentType("application/json");
+
                     response.getWriter().print(listData);
                     System.out.println(listData);
                 } catch (Exception ex) {
