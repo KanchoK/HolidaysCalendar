@@ -63,6 +63,27 @@ public class SignUpServlet extends HttpServlet {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (CrudDao.isEmailTaken(email)) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/signUp.html");
+            PrintWriter out = null;
+            try {
+                out = response.getWriter();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            out.println("<p style=\"background:#3399cc; display:block; margin:0 auto;\n" +
+                    "    margin-top:1%;\n" +
+                    "    padding:10px;\n" +
+                    "    text-align:center;\n" +
+                    "    text-decoration:none;\n" +
+                    "    color:#fff;\">The Email you used is already taken.</p>");
+            try {
+                rd.include(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (!(email.matches("[a-zA-Z][a-zA-Z0-9_]*[\\.]?[a-zA-Z0-9_]*[a-zA-Z0-9]@novarto\\.com"))) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/signUp.html");
             PrintWriter out = null;

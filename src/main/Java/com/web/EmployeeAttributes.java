@@ -86,4 +86,43 @@ public class EmployeeAttributes {
 
         return employeeID;
     }
+
+    public static int getAccountStatus(String email, String pass){
+        int accountStatus = 0;
+
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = conn.prepareStatement("select accountStatus from employees where email = ? and password = ?");
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, pass);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            accountStatus = resultSet.getInt("accountStatus");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        finally {
+            try{
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBConnection.closeConnection();
+        }
+
+        return accountStatus;
+    }
 }

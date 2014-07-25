@@ -21,7 +21,7 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPass = request.getParameter("newPassword");
         String confirmNewPass = request.getParameter("confirmNewPassword");
 
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/changePassword.html");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/changePassword.jsp");
         PrintWriter out = null;
 
         if (oldPass.trim().equals("") || newPass.trim().equals("") || confirmNewPass.trim().equals("")){
@@ -84,6 +84,11 @@ public class ChangePasswordServlet extends HttpServlet {
         } else {
             String newConvertedPass = Utility.toSHA1(Utility.salt(newPass).getBytes());
             CrudDao.updateEmployeePassword(newConvertedPass, (Integer)session.getAttribute("employeeID"));
+
+            if (session.getAttribute("accountStatus").equals(0)){
+                CrudDao.updateEmployeeAccountStatus((Integer)session.getAttribute("employeeID"));
+                session.setAttribute("accountStatus", 1);
+            }
 
             if (session.getAttribute("access").equals(1)){
                 try {

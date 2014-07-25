@@ -66,14 +66,16 @@ public class HolidayTableController extends HttpServlet{
                 holiday.setEndDate(request.getParameter("endDate"));
                 holiday.setEmployeeID((Integer)(session.getAttribute("employeeID")));
 
-                //employeeName not necessary in Holiday's table
-                holiday.setEmployeeName((String)(session.getAttribute("employeeName")));
+                holiday.setEmployeeName(CrudDao.getEmployeeName((Integer)(session.getAttribute("employeeID"))));
 
                 try {
                     holiday.setHolidayID(CrudDao.addHoliday(holiday));
                     holidays.add(holiday);
                     String json = gson.toJson(holiday);
                     String listData = "{\"Result\":\"OK\",\"Record\":" + json + "}";
+
+                    DocumentGenerator.generateDocument(holiday.getEmployeeName(), holiday.getBeginDate(), holiday.getEndDate());
+
                     try {
                         response.getWriter().print(listData);
                     } catch (IOException e) {

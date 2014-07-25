@@ -30,7 +30,7 @@ body{
     background:#2288bb;
 }
 
-#login, #signUp, #changePass, #changeEmail, #changeNames{
+#login, #signUp, #changePass{
     width:400px;
     margin:0 auto;
     margin-top:8px;
@@ -48,7 +48,7 @@ body{
     margin:0 auto;
 }
 
-#login h1, #signUp h1, #changePass h1, #changeEmail h1, #changeNames h1{
+#login h1, #signUp h1, #changePass h1{
     background:#3399cc;
     padding:20px 0;
     font-size:140%;

@@ -26,17 +26,19 @@ public class LoginServlet extends HttpServlet{
             session.setAttribute("access", access);
             int employeeID = EmployeeAttributes.getEmployeeID(email, convertedPass);
             session.setAttribute("employeeID", employeeID);
+            int accountStatus = EmployeeAttributes.getAccountStatus(email, convertedPass);
+            session.setAttribute("accountStatus", accountStatus);
 
-            if (session.getAttribute("access").equals(1)){
+            if (access == 1){
                 try {
                     response.sendRedirect("Admin.html");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                if (CrudDao.getAccountStatus((Integer) session.getAttribute("employeeID")) == 0) {
+                if (accountStatus == 0) {
                     try {
-                        response.sendRedirect("changePassword.html");
+                        response.sendRedirect("changePassword.jsp");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
